@@ -12,12 +12,37 @@
     <link rel="apple-touch-icon" sizes="180x180" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
+    
     <!-- Web App Manifest for PWA features (e.g., Android home screen icon, theme color) -->
-    <link rel="manifest" href="/site.webmanifest">
+    <!-- The manifest content is embedded as JSON in a script tag and dynamically created by JS -->
+    <script type="application/json" id="webmanifest-json">
+    {
+      "name": "آنالیزر اختصاصی زیما",
+      "short_name": "زیما",
+      "start_url": ".",
+      "display": "standalone",
+      "background_color": "#002744",
+      "theme_color": "#002744",
+      "description": "ابزار تحلیل هوشمند تصاویر زیما",
+      "icons": [
+        {
+          "src": "https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        },
+        {
+          "src": "https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    }
+    </script>
+
     <!-- Microsoft Tile Color for Windows Start Menu -->
     <meta name="msapplication-TileColor" content="#002744">
     <!-- Theme color for browser UI elements (e.g., address bar on Android) -->
-    <meta name="theme-color" content="#002744"> <!-- Changed to primary color for consistency -->
+    <meta name="theme-color" content="#002744">
 
     <style>
         /* CSS Variables for consistent styling */
@@ -887,6 +912,25 @@
             `;
             resultsContainer.appendChild(summaryCard);
         }
+
+        // Dynamically create and append the manifest link
+        document.addEventListener('DOMContentLoaded', () => {
+            const manifestDataScript = document.getElementById('webmanifest-json');
+            if (manifestDataScript) {
+                try {
+                    const manifestContent = JSON.parse(manifestDataScript.textContent);
+                    const blob = new Blob([JSON.stringify(manifestContent)], { type: 'application/json' });
+                    const manifestURL = URL.createObjectURL(blob);
+
+                    const linkElement = document.createElement('link');
+                    linkElement.rel = 'manifest';
+                    linkElement.href = manifestURL;
+                    document.head.appendChild(linkElement);
+                } catch (e) {
+                    console.error("Error parsing or creating webmanifest:", e);
+                }
+            }
+        });
     </script>
 </body>
 </html>
