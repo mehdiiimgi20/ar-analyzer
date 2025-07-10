@@ -6,6 +6,19 @@
     <title>آنالیزر اختصاصی زیما</title>
     <!-- Link to Vazirmatn font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon and Apple Touch Icon for Add to Home Screen -->
+    <!-- Using the provided icon link for all platforms and sizes -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
+    <!-- Web App Manifest for PWA features (e.g., Android home screen icon, theme color) -->
+    <link rel="manifest" href="/site.webmanifest">
+    <!-- Microsoft Tile Color for Windows Start Menu -->
+    <meta name="msapplication-TileColor" content="#002744">
+    <!-- Theme color for browser UI elements (e.g., address bar on Android) -->
+    <meta name="theme-color" content="#002744"> <!-- Changed to primary color for consistency -->
+
     <style>
         /* CSS Variables for consistent styling */
         :root {
@@ -462,8 +475,10 @@
                 <div class="upload-box" id="upload-box">
                     <div class="icon">
                         <!-- SVG icon for image selection (a simple image icon) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image">
-                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-plus">
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"/>
+                            <line x1="16" x2="22" y1="5" y2="5"/>
+                            <line x1="19" x2="19" y1="2" y2="8"/>
                             <circle cx="9" cy="9" r="2"/>
                             <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
                         </svg>
