@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحلیل گر پیشرفته AR زیما</title>
+    <title>تحلیلگر هوشمند AR</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0f3460;
-            --light-gray: #f5f5f5;
-            --border-color: #e0e0e0;
-            --text-color: #333;
-            --white-color: #ffffff;
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #ecf0f1;
+            --surface-color: #ffffff;
+            --text-color: #34495e;
+            --border-color: #dfe4ea;
             --success-color: #27ae60;
-            --warning-color: #f39c12;
             --error-color: #c0392b;
+            --dark-black-text: #1a1a1a;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Vazirmatn', sans-serif;
             direction: rtl;
-            background-color: var(--light-gray);
+            background-color: var(--background-color);
             color: var(--text-color);
             margin: 0;
             padding: 20px;
@@ -32,81 +37,78 @@
 
         .container {
             width: 100%;
-            max-width: 500px;
-            background-color: var(--white-color);
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            max-width: 600px;
+            background-color: var(--surface-color);
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
 
         header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         header h1 {
             color: var(--primary-color);
             font-weight: 700;
-            font-size: 1.8rem;
+            font-size: 2rem;
+            margin: 0;
         }
         
-        .btn {
-            width: 100%;
-            padding: 15px;
-            border-radius: 12px;
-            border: none;
+        header p {
             font-size: 1.1rem;
-            font-weight: 700;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+
+        .upload-box {
+            background-color: #002744;
+            border: 2px dashed #55739d;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
+            transition: all 0.3s ease;
         }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .upload-box:hover, .upload-box.drag-over {
+            border-color: #ffffff;
+            background-color: #003359;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: var(--white-color);
+        .upload-box .icon {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+            line-height: 1;
         }
-
-        .btn-secondary {
-            background-color: var(--border-color);
-            color: var(--text-color);
+        .upload-box p {
+            margin: 5px 0 0 0;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #ffffff;
         }
-        
-        .btn:disabled {
-            background-color: #a0b0c8;
-            color: #e0e0e0;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .upload-icon {
-            font-size: 1.3rem;
-            transform: translateY(2px);
+        .upload-box span {
+            font-size: 0.8rem;
+            color: #bdc3c7;
         }
 
         .file-input { display: none; }
-
-        .preview-container {
+        
+        .preview-section {
             margin-top: 25px;
+        }
+        .preview-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 15px;
+            margin-bottom: 20px;
         }
-
         .preview-card {
             position: relative;
             animation: fadeIn 0.4s;
         }
-
         .preview-card img {
             width: 100%;
             height: 100px;
@@ -114,78 +116,92 @@
             border-radius: 12px;
             border: 2px solid var(--border-color);
         }
-        
-        .preview-card .badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, color 0.3s;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-            border: 2px solid var(--white-color);
+            gap: 10px;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .action-buttons {
-            margin-top: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .status-box {
+        .status-container {
             text-align: center;
-            padding: 12px;
-            margin-top: 25px;
-            border-radius: 12px;
-            font-weight: 700;
+            margin-top: 20px;
+            font-weight: 500;
         }
-        
-        .status-box.error {
-            background-color: #fbe9e7;
-            color: var(--error-color);
-            border: 1px solid var(--error-color);
+        .status-container .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+            animation: spin 1s linear infinite;
         }
-        
-        .results-container { margin-top: 25px; }
+
+        .results-container { 
+            margin-top: 30px;
+            animation: fadeIn 0.5s;
+        }
 
         .recommendation-card {
-            background: linear-gradient(45deg, var(--primary-color), #2c3e50);
-            color: var(--white-color);
+            background: linear-gradient(135deg, #ffffff, #f7f9fb);
+            color: var(--dark-black-text);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 25px;
             text-align: center;
-            animation: fadeIn 0.5s;
+            border: 1px solid #eaf1f8;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
         }
         .recommendation-card h3 {
             margin: 0 0 15px 0;
             font-size: 1.3rem;
+            color: var(--dark-black-text);
         }
         .recommendation-card img {
             max-width: 80%;
             max-height: 200px;
             border-radius: 12px;
-            border: 3px solid var(--white-color);
             margin-bottom: 15px;
-        }
-        .recommendation-card .filename {
-            font-weight: 700;
-            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
         }
         .recommendation-card .quality-text {
             font-size: 1rem;
-            opacity: 0.9;
+            color: var(--dark-black-text);
         }
         .recommendation-card .quality-text span {
             font-weight: 700;
             font-size: 1.2rem;
+            color: var(--success-color);
         }
         
         .result-card {
@@ -194,7 +210,6 @@
             border-radius: 16px;
             padding: 15px;
             margin-bottom: 20px;
-            animation: fadeIn 0.5s;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         
@@ -213,10 +228,9 @@
             border-radius: 8px;
         }
         
-        .result-title { flex-grow: 1; }
-        .result-title .filename {
-            font-weight: 700;
-            font-size: 1.1rem;
+        .result-title { 
+            flex-grow: 1; 
+            text-align: right;
         }
         
         .verdict {
@@ -224,6 +238,7 @@
             border-radius: 20px;
             font-weight: 700;
             color: var(--white-color);
+            font-size: 0.9rem;
         }
         .verdict.good { background-color: var(--success-color); }
         .verdict.bad { background-color: var(--error-color); }
@@ -259,6 +274,7 @@
             gap: 8px;
             margin-bottom: 8px;
             font-weight: 500;
+            font-size: 0.9rem;
         }
         
         .strengths h4 { color: var(--success-color); }
@@ -268,8 +284,12 @@
         .icon-cross::before { content: '✖'; color: var(--error-color); }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
     </style>
@@ -277,23 +297,23 @@
 <body>
     <div class="container">
         <header>
-            <h1>تحلیل گر AR زیما</h1>
+            <h1>تحلیلگر هوشمند AR</h1>
+            <p>بهترین عکس را برای پروژه واقعیت افزوده خود پیدا کنید</p>
         </header>
         <main>
             <input type="file" id="file-input" class="file-input" multiple accept="image/*">
-            <button class="btn btn-primary" id="upload-btn">
-                <span class="upload-icon">↑</span>
-                <span>انتخاب عکس‌ها (چندتایی)</span>
-            </button>
-
-            <div class="preview-container" id="preview-container"></div>
-            <div id="status-box" class="status-box error" style="display: none;"></div>
-
-            <div class="action-buttons">
-                <button class="btn btn-primary" id="analyze-btn" disabled>تحلیل اولیه (پیشنهاد هوشمند)</button>
-                <button class="btn btn-secondary" id="mindar-btn" disabled>تحلیل نتیجه تست MindAR</button>
+            <div class="upload-box" id="upload-box">
+                <div class="icon">↑</div>
+                <p>انتخاب یا کشیدن عکس‌ها</p>
+                <span>فایل‌های خود را برای تحلیل اینجا رها کنید</span>
             </div>
-            
+
+            <div class="preview-section" id="preview-section" style="display: none;">
+                <div class="preview-grid" id="preview-grid"></div>
+                <button class="btn btn-outline" id="start-analysis-btn">شروع تحلیل هوشمند</button>
+            </div>
+
+            <div class="status-container" id="status-container" style="display: none;"></div>
             <div class="results-container" id="results-container"></div>
         </main>
     </div>
@@ -302,52 +322,82 @@
     
     <script type="text/javascript">
     const fileInput = document.getElementById('file-input');
-    const uploadBtn = document.getElementById('upload-btn');
-    const analyzeBtn = document.getElementById('analyze-btn');
-    const previewContainer = document.getElementById('preview-container');
+    const uploadBox = document.getElementById('upload-box');
+    const previewSection = document.getElementById('preview-section');
+    const previewGrid = document.getElementById('preview-grid');
+    const startAnalysisBtn = document.getElementById('start-analysis-btn');
     const resultsContainer = document.getElementById('results-container');
-    const statusBox = document.getElementById('status-box');
+    const statusContainer = document.getElementById('status-container');
 
+    let isCvReady = false;
     let selectedFiles = [];
 
     function onOpenCvReady() {
         console.log("OpenCV is ready.");
+        isCvReady = true;
     }
 
-    uploadBtn.addEventListener('click', () => fileInput.click());
-
-    fileInput.addEventListener('change', (event) => {
-        selectedFiles = Array.from(event.target.files);
-        previewContainer.innerHTML = '';
-        resultsContainer.innerHTML = '';
-        statusBox.style.display = 'none';
-        
-        if (selectedFiles.length > 0) {
-            analyzeBtn.disabled = false;
-            selectedFiles.forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const card = document.createElement('div');
-                    card.className = 'preview-card';
-                    card.innerHTML = `
-                        <img src="${e.target.result}" alt="${file.name}">
-                        <div class="badge">${index + 1}</div>
-                    `;
-                    previewContainer.appendChild(card);
-                };
-                reader.readAsDataURL(file);
-            });
-        } else {
-            analyzeBtn.disabled = true;
-        }
+    uploadBox.addEventListener('click', () => fileInput.click());
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
     });
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, () => uploadBox.classList.add('drag-over'), false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, () => uploadBox.classList.remove('drag-over'), false);
+    });
+    uploadBox.addEventListener('drop', handleDrop, false);
+    fileInput.addEventListener('change', (event) => handleFiles(event.target.files));
+    startAnalysisBtn.addEventListener('click', analyzeImages);
 
-    analyzeBtn.addEventListener('click', async () => {
-        if (selectedFiles.length === 0) return;
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
 
-        analyzeBtn.disabled = true;
-        analyzeBtn.textContent = 'در حال تحلیل...';
+    function handleDrop(e) {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+        handleFiles(files);
+    }
+
+    function handleFiles(files) {
+        if (files.length === 0) return;
+        selectedFiles = Array.from(files);
+        
         resultsContainer.innerHTML = '';
+        statusContainer.style.display = 'none';
+        previewGrid.innerHTML = '';
+
+        selectedFiles.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const card = document.createElement('div');
+                card.className = 'preview-card';
+                card.innerHTML = `<img src="${e.target.result}" alt="${file.name}">`;
+                previewGrid.appendChild(card);
+            };
+            reader.readAsDataURL(file);
+        });
+        
+        previewSection.style.display = 'block';
+    }
+
+    async function analyzeImages() {
+        if (selectedFiles.length === 0) return;
+        if (!isCvReady) {
+            statusContainer.innerHTML = 'موتور تحلیل هنوز آماده نیست، لطفاً کمی صبر کنید...';
+            statusContainer.style.display = 'block';
+            return;
+        }
+
+        previewSection.style.display = 'none';
+        resultsContainer.innerHTML = '';
+        statusContainer.innerHTML = '<div class="loader"></div><span>در حال تحلیل عکس‌ها...</span>';
+        statusContainer.style.display = 'block';
 
         let analysisResults = [];
         for (const file of selectedFiles) {
@@ -366,18 +416,11 @@
         
         analysisResults.sort((a, b) => b.report.quality - a.report.quality);
         displayResults(analysisResults);
-        
-        analyzeBtn.disabled = false;
-        analyzeBtn.textContent = 'تحلیل اولیه (پیشنهاد هوشمند)';
-    });
+        statusContainer.style.display = 'none';
+    }
 
     function analyzeImageWithOpenCV(file) {
         return new Promise((resolve, reject) => {
-            if (typeof cv === 'undefined' || !cv.imread) {
-                 statusBox.textContent = 'خطا: موتور پردازش تصویر (OpenCV) بارگذاری نشده است.';
-                 statusBox.style.display = 'block';
-                 return reject('OpenCV not ready');
-            }
             const reader = new FileReader();
             reader.onload = (e) => {
                 const imgElement = document.createElement('img');
@@ -395,7 +438,6 @@
 
                         let mean = new cv.Mat();
                         let stdDev = new cv.Mat();
-
                         cv.meanStdDev(gray, mean, stdDev);
                         const contrastScore = stdDev.data64F[0];
 
@@ -405,7 +447,7 @@
                         const sharpnessScore = Math.pow(stdDev.data64F[0], 2);
 
                         const report = generateAnalysisReport({ featureScore, contrastScore, sharpnessScore });
-
+                        
                         src.delete(); gray.delete(); keypoints.delete(); orb.delete(); mean.delete(); stdDev.delete(); laplacian.delete();
                         
                         resolve({ filename: file.name, report, imgSrc: e.target.result });
@@ -454,53 +496,34 @@
     }
 
     function displayResults(results) {
-        resultsContainer.innerHTML = ''; // Clear previous results
-
+        resultsContainer.innerHTML = '';
         if (results.length === 0) return;
-
-        // --- NEW: Create and display the final recommendation card ---
+        
         const bestResult = results[0];
-        if (bestResult.report.verdict === 'مناسب') {
-            const recommendationCard = document.createElement('div');
-            recommendationCard.className = 'recommendation-card';
-            recommendationCard.innerHTML = `
-                <h3>⭐ پیشنهاد نهایی</h3>
-                <img src="${bestResult.imgSrc}" alt="${bestResult.filename}">
-                <p class="filename">${bestResult.filename}</p>
-                <p class="quality-text">
-                    این عکس با کیفیت <span>${bestResult.report.quality}%</span> بهترین گزینه برای پروژه شماست.
-                </p>
-            `;
-            resultsContainer.appendChild(recommendationCard);
-        }
-
-
-        // --- Display detailed analysis for all images ---
-        const detailsHeader = document.createElement('h3');
-        detailsHeader.textContent = 'تحلیل دقیق عکس‌ها';
-        detailsHeader.style.textAlign = 'center';
-        detailsHeader.style.marginBottom = '15px';
-        detailsHeader.style.color = 'var(--primary-color)';
-        resultsContainer.appendChild(detailsHeader);
+        const recommendationCard = document.createElement('div');
+        recommendationCard.className = 'recommendation-card';
+        recommendationCard.innerHTML = `
+            <h3>⭐ پیشنهاد هوشمند</h3>
+            <img src="${bestResult.imgSrc}" alt="بهترین عکس پیشنهادی">
+            <p class="quality-text">
+                این عکس با کیفیت <span>${bestResult.report.quality}%</span> بهترین گزینه برای پروژه شماست.
+            </p>
+        `;
+        resultsContainer.appendChild(recommendationCard);
 
         results.forEach(result => {
             const card = document.createElement('div');
             card.className = 'result-card';
             const { report, imgSrc, filename } = result;
-            
             const verdictClass = report.verdict === "مناسب" ? "good" : "bad";
-
             let strengthsHTML = report.strengths.map(s => `<li><span class="icon-check"></span>${s}</li>`).join('');
             if (report.strengths.length === 0) strengthsHTML = '<li>نقطه قوت قابل توجهی یافت نشد.</li>';
-
             let weaknessesHTML = report.weaknesses.map(w => `<li><span class="icon-cross"></span>${w}</li>`).join('');
             if (report.weaknesses.length === 0) weaknessesHTML = '<li>نقطه ضعف قابل توجهی یافت نشد.</li>';
-
             card.innerHTML = `
                 <div class="result-header">
                     <img src="${imgSrc}" alt="${filename}">
                     <div class="result-title">
-                        <p class="filename">${filename}</p>
                         <span class="verdict ${verdictClass}">${report.verdict}</span>
                     </div>
                     <div class="quality-percent">${report.quality}%</div>
