@@ -8,11 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Favicon and Apple Touch Icon for Add to Home Screen -->
-    <!-- Using the provided icon link for all platforms and sizes -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
-    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
+    <!-- Using the newly provided icon link for all platforms and sizes -->
+    <link rel="apple-touch-icon" sizes="180x180" href="uploaded:2472f1d2-8053-403e-8421-176c92bbef34.png-74c6d928-0715-436b-ab7f-d175cdfe89b0">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="uploaded:2472f1d2-8053-403e-8421-176c92bbef34.png-74c6d928-0715-436b-ab7f-d175cdfe89b0">
+    <link rel="icon" type="image/png" sizes="32x32" href="uploaded:2472f1d2-8053-403e-8421-176c92bbef34.png-74c6d928-0715-436b-ab7f-d175cdfe89b0">
+    <link rel="icon" type="image/png" sizes="16x16" href="uploaded:2472f1d2-8053-403e-8421-176c92bbef34.png-74c6d928-0715-436b-ab7f-d175cdfe89b0">
     
     <!-- Web App Manifest for PWA features (e.g., Android home screen icon, theme color) -->
     <!-- The manifest content is embedded as JSON in a script tag and dynamically created by JS -->
@@ -27,12 +27,12 @@
       "description": "ابزار تحلیل هوشمند تصاویر زیما",
       "icons": [
         {
-          "src": "https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png",
+          "src": "uploaded:2472f1d2-8053-403e-8421-176c92bbef34.png-74c6d928-0715-436b-ab7f-d175cdfe89b0",
           "sizes": "192x192",
           "type": "image/png"
         },
         {
-          "src": "https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png",
+          "src": "uploaded:2472f1d2-8053-403e-8421-176c92bbef34.png-74c6d928-0715-436b-ab7f-d175cdfe89b0",
           "sizes": "512x512",
           "type": "image/png"
         }
@@ -97,9 +97,9 @@
             left: 35px; /* Changed from right to left */
         }
         .app-logo img {
-            /* Changed the logo source to a placeholder to avoid potential conflict/confusion with the home screen icon */
-            /* You can revert this to your original logo image if the home screen icon issue is resolved */
-            content: url('https://placehold.co/120x120/002744/ffffff?text=Zima+Logo'); 
+            /* Reverted to original logo source */
+            content: none; /* Remove content property if it was set */
+            src: "https://biaupload.com/do.php?imgf=org-0ec5393860b91.png"; 
             width: 120px; /* Adjusted size to fit well */
             height: auto;
         }
@@ -388,106 +388,13 @@
             margin: 0;
         }
         
-        .analysis-list li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        
-        .strengths h4 { color: var(--success-color); }
-        .weaknesses h4 { color: var(--error-color); }
-        
-        /* Icons for strengths and weaknesses lists */
-        .icon-check::before { content: '✔'; color: var(--success-color); }
-        .icon-cross::before { content: '✖'; color: var(--error-color); }
-
-        /* Summary card styling */
-        .summary-card {
-            background-color: #f8f9fa;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 30px;
-        }
-        .summary-card h4 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            text-align: center;
-            color: var(--primary-color);
-        }
-        .summary-card ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .summary-card li {
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border-color);
-            font-weight: 500;
-        }
-        .summary-card li:last-child {
-            border-bottom: none;
-        }
-        .summary-card li strong {
-            font-weight: 700;
-            color: var(--text-color);
-        }
-
-        /* Typing cursor animation for slogan */
-        .typing-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1.1rem;
-            background-color: var(--primary-color); /* Use primary color for cursor */
-            animation: blink 0.7s infinite;
-            vertical-align: middle;
-        }
-
-        /* Keyframe animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-            }
-            .app-logo {
-                position: static; /* Reset position for smaller screens */
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            .app-logo img {
-                width: 60px; /* Keep logo smaller on mobile for better layout */
-            }
-            header h1 {
-                font-size: 1.8rem;
-            }
-            .main-actions {
-                grid-template-columns: 1fr; /* Stack actions vertically */
-            }
-            .analysis-body {
-                grid-template-columns: 1fr; /* Stack analysis lists vertically */
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Application Logo -->
         <div class="app-logo">
+            <!-- Reverted to original logo source -->
             <img src="https://biaupload.com/do.php?imgf=org-0ec5393860b91.png" alt="Zima Logo">
         </div>
         <!-- Header Section -->
