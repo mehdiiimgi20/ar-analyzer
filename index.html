@@ -10,6 +10,7 @@
     <!-- Favicon and Apple Touch Icon for Add to Home Screen -->
     <!-- Using the provided icon link for all platforms and sizes -->
     <link rel="apple-touch-icon" sizes="180x180" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://biaupload.com/do.php?imgf=org-2ac45cd90e241.png">
     
@@ -96,6 +97,9 @@
             left: 35px; /* Changed from right to left */
         }
         .app-logo img {
+            /* Changed the logo source to a placeholder to avoid potential conflict/confusion with the home screen icon */
+            /* You can revert this to your original logo image if the home screen icon issue is resolved */
+            content: url('https://placehold.co/120x120/002744/ffffff?text=Zima+Logo'); 
             width: 120px; /* Adjusted size to fit well */
             height: auto;
         }
